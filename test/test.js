@@ -68,7 +68,7 @@ describe("FetchSearchResult Lambda Unit Test", function () {
         .catch(done); // Catch assertion errors
     });
 
-    it("with data array having keyword and id", function (done) {
+    it("with data array having keyword and departmentId", function (done) {
       lambdaTester(lambda.handler)
         .event(mockData)
         .expectResult((result) => {
@@ -81,8 +81,8 @@ describe("FetchSearchResult Lambda Unit Test", function () {
           // Check if data[0] has keyword property
           expect(result.data[0]).to.have.own.property("keyword");
 
-          // Check if data[0] has id property
-          expect(result.data[0]).to.have.own.property("id");
+          // Check if data[0] has departmentId property
+          expect(result.data[0]).to.have.own.property("departmentId");
 
           done();
         })

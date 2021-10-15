@@ -11,11 +11,11 @@
 {
     "code": 200,
     "data": [
-        { keyword: "EMP100101", id: 1 },
-        { keyword: "EMP100167", id: 2 },
-        { keyword: "EMP100199", id: 4 },
-        { keyword: "EMP181001", id: 5 },
-        { keyword: "EMP122100", id: 9 }
+        { keyword: "EMP100101", departmentId: 1 },
+        { keyword: "EMP100167", departmentId: 2 },
+        { keyword: "EMP100199", departmentId: 4 },
+        { keyword: "EMP181001", departmentId: 5 },
+        { keyword: "EMP122100", departmentId: 9 }
     ],
     "message": "Results fetched!",
 }
@@ -83,11 +83,11 @@ const fetchSearchResultOutput = (isError, isEmptyOutput) => {
   // Mock success output
   return {
     records: [
-      { keyword: "A100XXXXXXXXXXX", id: 1 },
-      { keyword: "B00XXXXXXXXX100", id: 1 },
-      { keyword: "CXXXXXXX100XXXX", id: 2 },
-      { keyword: "DXX100XXXXXXXXX", id: 5 },
-      { keyword: "E0XXXXXXXX100XX", id: 9 },
+      { keyword: "EMP100101", departmentId: 1 },
+      { keyword: "EMP100167", departmentId: 2 },
+      { keyword: "EMP100199", departmentId: 4 },
+      { keyword: "EMP181001", departmentId: 5 },
+      { keyword: "EMP122100", departmentId: 9 },
     ],
   };
 };
