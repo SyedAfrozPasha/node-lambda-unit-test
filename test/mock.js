@@ -3,7 +3,7 @@
 /* ***** SAMPLE INPUT (requestBody) *******
 {
     "searchText": "100",
-    "someotherParams": "ABC"
+    "filterBy": "departmentId"
 }
 ********************************** */
 
@@ -11,11 +11,11 @@
 {
     "code": 200,
     "data": [
-        { keyword: "A100XXXXXXXXXXX", id: 1 },
-        { keyword: "B00XXXXXXXXX100", id: 1 },
-        { keyword: "CXXXXXXX100XXXX", id: 2 },
-        { keyword: "DXX100XXXXXXXXX", id: 5 },
-        { keyword: "E0XXXXXXXX100XX", id: 9 }
+        { keyword: "EMP100101", id: 1 },
+        { keyword: "EMP100167", id: 2 },
+        { keyword: "EMP100199", id: 4 },
+        { keyword: "EMP181001", id: 5 },
+        { keyword: "EMP122100", id: 9 }
     ],
     "message": "Results fetched!",
 }
@@ -25,7 +25,7 @@
 exports.validInput = () => {
   let data = {
     searchText: "100",
-    someotherParams: "ABC",
+    filterBy: "departmentId",
   };
 
   return {
@@ -37,7 +37,7 @@ exports.validInput = () => {
 exports.invalidInput = (params) => {
   let data = {
     searchText: "100",
-    someotherParams: "ABC",
+    filterBy: "departmentId",
   };
 
   if (params && params.length > 0) {
@@ -45,20 +45,20 @@ exports.invalidInput = (params) => {
       data.searchText = null;
     }
 
-    if (params.includes("someotherParams")) {
-      data.someotherParams = null;
+    if (params.includes("filterBy")) {
+      data.filterBy = null;
     }
 
     if (data.searchText) {
       data = {
         searchText: null,
-        someotherParams: null,
+        filterBy: null,
       };
     }
   } else {
     data = {
       searchText: null,
-      someotherParams: null,
+      filterBy: null,
     };
   }
   return {

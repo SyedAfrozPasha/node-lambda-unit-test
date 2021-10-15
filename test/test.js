@@ -5,13 +5,13 @@ const proxyquire = require("proxyquire");
 const lambdaTester = require("lambda-tester");
 
 // Internal dependencies
-const utils = require("../utils/utils");
+const utils = require("../src/utils/utils");
 
 // Import mock function from mock.js
 const { mockDBfunction, validInput, invalidInput } = require("./mock");
 
 // Define a common test suite
-describe("fetchSearchResult Lambda Unit Test", function () {
+describe("FetchSearchResult Lambda Unit Test", function () {
   let lambda = null;
 
   // Mocking data services
@@ -19,7 +19,7 @@ describe("fetchSearchResult Lambda Unit Test", function () {
 
   beforeEach(function () {
     // Exporting the lambda with mock dependencies
-    lambda = proxyquire.noCallThru().load("../lambda/app.js", {
+    lambda = proxyquire.noCallThru().load("../src/lambda/app.js", {
       // Replacing the dependencies present inside lambda function (app.js) with mock functions
       "../dataService/data": dataStub,
       "../utils/utils": utils,
@@ -126,9 +126,9 @@ describe("fetchSearchResult Lambda Unit Test", function () {
         .catch(done);
     });
 
-    it("with code = 400, when someotherParams is null", function (done) {
+    it("with code = 400, when filterBy is null", function (done) {
       // Mock request body
-      const mockData = invalidInput(["someotherParams"]);
+      const mockData = invalidInput(["filterBy"]);
 
       // Invoking lambda with Mock functions and data
       lambdaTester(lambda.handler)
@@ -236,7 +236,7 @@ describe("fetchSearchResult Lambda Unit Test", function () {
       mockData = validInput();
     });
 
-    it("with code =200, when no records found in 'fetchSearchResult' function", function (done) {
+    it("with code = 200, when no records found in 'fetchSearchResult' function", function (done) {
       lambdaTester(lambda.handler)
         .event(mockData)
         .expectResult((result) => {

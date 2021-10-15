@@ -6,30 +6,31 @@ exports.handler = async (event, context) => {
 };
 
 /* ************************************
-Uncomment this section to test the lambda locally
-using node lambda/app.js
-**************************************
-const event1 = {
-  body: { searchText: "100", someotherParams: "ABC" },
-};
-exports.handler(event1, null);
-************************************ */
+Uncomment the below section to test the lambda locally
+using the command `npm run start`
+************************************** */
+// const testEvent = {
+//   body: { searchText: "100", filterBy: "departmentId" }
+// };
+// exports.handler(testEvent, null);
+
 
 async function lambdaFunction(event, context) {
   const response = {};
   try {
     let requestBody = event.body;
-    let { searchText, someotherParams } = requestBody;
+    let { searchText, filterBy } = requestBody;
 
     /* Validate the required request params */
     if (
-      !utils.validateInputs(searchText) ||
-      !utils.validateInputs(someotherParams)
+      !utils.isValidateInput(searchText) ||
+      !utils.isValidateInput(filterBy)
     ) {
       throw new Error("Invalid request body");
     }
 
-    const searchResult = await fetchSearchResult(searchText, someotherParams);
+    // Get search results
+    const searchResult = await fetchSearchResult(searchText, filterBy);
 
     if (searchResult && searchResult.length > 0) {
       response.data = searchResult;
@@ -49,16 +50,16 @@ async function lambdaFunction(event, context) {
       response.ErrorMessages = [error.message];
     }
 
-    // console.log("response-ERR:", response);
     return response;
   }
 }
 
-async function fetchSearchResult(searchText, someotherParams) {
+// Function to fetch serach result based on searchText and filter
+async function fetchSearchResult(searchText, filterBy) {
   try {
     const dbQuery = `
             SELECT * FROM TABLE_A WHERE Keyword like '%${searchText}%'
-            ORDER BY '${someotherParams}'
+            ORDER BY '${filterBy}' ASC
         `;
     const dbResult = await data.query(dbQuery);
     if (dbResult && dbResult.records && dbResult.records.length > 0) {
